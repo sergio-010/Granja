@@ -1,36 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 La Granja de Pipe - Sistema de Gestión Veterinaria
 
-## Getting Started
+Sistema completo de gestión veterinaria desarrollado con **Next.js 16**, **TypeScript**, **Prisma** y **shadcn/ui**.
 
-First, run the development server:
+![La Granja de Pipe](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=for-the-badge&logo=prisma)
+
+## ✨ Características Principales
+
+### 🌐 Área Pública
+- ✅ **Landing page moderna** con diseño atractivo y animaciones
+- ✅ **Catálogo de servicios** completo y responsive
+- ✅ **Banners promocionales** dinámicos
+- ✅ **Páginas de detalle** para cada servicio/producto
+- ✅ **Modo oscuro/claro** con toggle persistente
+- ✅ **Integración WhatsApp** para contacto directo
+
+### 🔐 Área Admin (Protegida)
+- ✅ **Autenticación segura** con NextAuth.js v5
+- ✅ **Dashboard interactivo** con KPIs en tiempo real
+- ✅ **Gráficos avanzados** con Recharts
+- ✅ **Sistema POS completo**
+- ✅ **Registro de gastos** detallado
+- ✅ **CRUD completo** de productos/servicios y banners
+- ✅ **Historial y reportes** con filtros avanzados
+
+## 🚀 Tecnologías
+
+- **Next.js 16** (App Router)
+- **TypeScript 5.9**
+- **Prisma 6** + SQLite
+- **NextAuth.js v5**
+- **shadcn/ui** + Tailwind CSS
+- **Recharts** para visualizaciones
+- **Zod** para validaciones
+
+## 📦 Instalación
+
+### 1. Instalar dependencias
+```bash
+npm install
+```
+
+### 2. Configurar variables de entorno
+
+Crea un archivo `.env`:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="tu-secret-key-super-segura"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### 3. Configurar la base de datos
+
+```bash
+npx prisma migrate dev --name init
+npx prisma db seed
+```
+
+### 4. Iniciar el servidor
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visita [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 Credenciales de Acceso
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Email | Contraseña | Rol |
+|-------|-----------|-----|
+| `admin@veterinaria.com` | `admin123` | SUPER_ADMIN |
+| `admin@gmail.com` | `Admin010` | ADMIN |
 
-## Learn More
+## 📂 Estructura del Proyecto
 
-To learn more about Next.js, take a look at the following resources:
+```
+dash/
+├── app/
+│   ├── (public)/          # Rutas públicas
+│   ├── admin/             # Panel admin
+│   ├── api/auth/          # NextAuth
+│   ├── login/             # Login
+│   └── page.tsx           # Landing
+├── components/
+│   ├── admin/             # Componentes admin
+│   └── ui/                # shadcn/ui
+├── lib/
+│   ├── actions/           # Server Actions
+│   └── auth.ts            # Config auth
+├── prisma/
+│   ├── schema.prisma      # Schema BD
+│   └── seed.ts            # Seed datos
+└── public/                # Estáticos
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Diseño
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Gradientes modernos verde/esmeralda
+- Animaciones suaves
+- Cards con hover effects
+- Responsive design
+- Dark mode optimizado
+- Glassmorphism
 
-## Deploy on Vercel
+## 📊 Dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- KPIs principales
+- Gráficos interactivos (Recharts)
+- Filtros por periodo
+- Ventas vs Gastos
+- Distribución por método de pago
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 Scripts
+
+```bash
+npm run dev          # Desarrollo
+npm run build        # Build producción
+npm start            # Servidor producción
+npx prisma studio    # Prisma Studio GUI
+```
+
+## 🌟 Sistema POS
+
+- Búsqueda rápida
+- Carrito interactivo
+- Múltiples métodos de pago
+- Registro automático
+
+## 🚀 Deploy en Vercel
+
+1. Push a GitHub
+2. Importa en [Vercel](https://vercel.com)
+3. Configura variables de entorno
+4. Deploy automático
+
+## 📝 Licencia
+
+MIT License
+
+---
+
+Hecho con 💚 para **La Granja de Pipe**
+# Granja
