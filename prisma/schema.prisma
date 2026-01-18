@@ -1,0 +1,127 @@
+// Schema para Veterinaria - Sistema POS + Dashboard
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum PaymentMethod {
+  CASH
+  TRANSFER
+  CARD
+  OTHER
+}
+
+enum ProductType {
+  PRODUCT
+  SERVICE
+}
+
+// Modelos
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(ADMIN)
+  createdAt    DateTime  @default(now())
+  
+  sales        Sale[]
+  expenses     Expense[]
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  price       Float
+  imageUrl    String?
+  isActive    Boolean     @default(true)
+  isFeatured  Boolean     @default(false)
+  type        ProductType @default(PRODUCT)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  saleItems   SaleItem[]
+  
+  @@index([slug])
+  @@index([isActive, isFeatured])
+}
+
+model Banner {
+  id         String    @id @default(cuid())
+  title      String
+  subtitle   String?
+  imageUrl   String
+  buttonText String?
+  linkUrl    String?
+  order      Int       @default(0)
+  isActive   Boolean   @default(true)
+  startsAt   DateTime?
+  endsAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  
+  @@index([isActive, order])
+}
+
+model Sale {
+  id              String        @id @default(cuid())
+  date            DateTime      @default(now())
+  subtotal        Float         @default(0) // Total antes de descuento
+  discountPercent Float         @default(0) // Descuento en porcentaje (0-100)
+  total           Float         // Total final después de descuento
+  paymentMethod   PaymentMethod
+  customerName    String?
+  notes           String?
+  createdById     String
+  createdAt       DateTime      @default(now())
+  
+  createdBy       User          @relation(fields: [createdById], references: [id])
+  items           SaleItem[]
+  
+  @@index([date])
+  @@index([createdById])
+  @@index([paymentMethod])
+}
+
+model SaleItem {
+  id                String  @id @default(cuid())
+  saleId            String
+  productId         String?
+  nameSnapshot      String
+  unitPriceSnapshot Float
+  quantity          Int
+  subtotal          Float
+  
+  sale              Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product           Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  
+  @@index([saleId])
+}
+
+model Expense {
+  id            String         @id @default(cuid())
+  date          DateTime       @default(now())
+  amount        Float
+  category      String
+  paymentMethod PaymentMethod?
+  notes         String?
+  createdById   String
+  createdAt     DateTime       @default(now())
+  
+  createdBy     User           @relation(fields: [createdById], references: [id])
+  
+  @@index([date])
+  @@index([createdById])
+  @@index([category])
+}
