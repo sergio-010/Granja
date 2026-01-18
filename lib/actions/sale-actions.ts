@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { prisma } from '@/lib/prisma';
-import { z } from 'zod';
-import { DateRange } from '@/lib/dateRange';
+import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/prisma";
+import { z } from "zod";
+import { DateRange } from "@/lib/dateRange";
 
 const saleItemSchema = z.object({
   productId: z.string().nullable(),
@@ -18,15 +18,15 @@ const saleSchema = z.object({
   subtotal: z.number().positive(),
   discountPercent: z.number().min(0).max(100).default(0),
   total: z.number().positive(),
-  paymentMethod: z.enum(['CASH', 'TRANSFER', 'CARD', 'OTHER']),
+  paymentMethod: z.enum(["CASH", "TRANSFER", "CARD", "OTHER"]),
   customerName: z.string().optional(),
   notes: z.string().optional(),
-  items: z.array(saleItemSchema).min(1, 'Debe agregar al menos un item'),
+  items: z.array(saleItemSchema).min(1, "Debe agregar al menos un item"),
 });
 
 export async function createSale(
   data: z.infer<typeof saleSchema>,
-  userId?: string
+  userId?: string,
 ) {
   const validated = saleSchema.parse(data);
 
@@ -34,10 +34,10 @@ export async function createSale(
   let finalUserId = userId;
   if (!finalUserId) {
     const adminUser = await prisma.user.findFirst({
-      where: { role: 'SUPER_ADMIN' },
+      where: { role: "SUPER_ADMIN" },
     });
     if (!adminUser) {
-      throw new Error('No se encontró un usuario administrador');
+      throw new Error("No se encontró un usuario administrador");
     }
     finalUserId = adminUser.id;
   }
@@ -61,8 +61,8 @@ export async function createSale(
     },
   });
 
-  revalidatePath('/admin/ventas');
-  revalidatePath('/admin/dashboard');
+  revalidatePath("/admin/ventas");
+  revalidatePath("/admin/dashboard");
   return sale;
 }
 
@@ -90,7 +90,7 @@ export async function getSales(dateRange?: DateRange) {
         },
       },
     },
-    orderBy: { date: 'desc' },
+    orderBy: { date: "desc" },
   });
 }
 
@@ -117,8 +117,8 @@ export async function deleteSale(id: string) {
     where: { id },
   });
 
-  revalidatePath('/admin/ventas');
-  revalidatePath('/admin/dashboard');
+  revalidatePath("/admin/ventas");
+  revalidatePath("/admin/dashboard");
 }
 
 export async function getSalesStats(dateRange: DateRange) {
@@ -139,11 +139,14 @@ export async function getSalesStats(dateRange: DateRange) {
   const salesCount = sales.length;
   const avgTicket = salesCount > 0 ? totalSales / salesCount : 0;
 
-  const byPaymentMethod = sales.reduce((acc, sale) => {
-    const method = sale.paymentMethod;
-    acc[method] = (acc[method] || 0) + Number(sale.total);
-    return acc;
-  }, {} as Record<string, number>);
+  const byPaymentMethod = sales.reduce(
+    (acc, sale) => {
+      const method = sale.paymentMethod;
+      acc[method] = (acc[method] || 0) + Number(sale.total);
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return {
     totalSales,
@@ -166,15 +169,18 @@ export async function getSalesByDay(dateRange: DateRange) {
       total: true,
     },
     orderBy: {
-      date: 'asc',
+      date: "asc",
     },
   });
 
-  const byDay = sales.reduce((acc, sale) => {
-    const dateKey = sale.date.toISOString().split('T')[0];
-    acc[dateKey] = (acc[dateKey] || 0) + Number(sale.total);
-    return acc;
-  }, {} as Record<string, number>);
+  const byDay = sales.reduce(
+    (acc, sale) => {
+      const dateKey = sale.date.toISOString().split("T")[0];
+      acc[dateKey] = (acc[dateKey] || 0) + Number(sale.total);
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return Object.entries(byDay).map(([date, total]) => ({
     date,

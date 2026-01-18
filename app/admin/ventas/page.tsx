@@ -37,7 +37,7 @@ export default function SalesPage() {
   const [selectedSale, setSelectedSale] = useState<SaleWithDetails | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Confirm dialog
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [saleToDelete, setSaleToDelete] = useState<string | null>(null);
@@ -62,10 +62,10 @@ export default function SalesPage() {
     setSaleToDelete(id);
     setConfirmOpen(true);
   };
-  
+
   const confirmDelete = async () => {
     if (!saleToDelete) return;
-    
+
     try {
       await deleteSale(saleToDelete);
       toast.success('Venta eliminada');
@@ -196,7 +196,7 @@ export default function SalesPage() {
               Información completa de la venta
             </DialogDescription>
           </DialogHeader>
-          
+
           {selectedSale && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -265,7 +265,7 @@ export default function SalesPage() {
           )}
         </DialogContent>
       </Dialog>
-      
+
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}

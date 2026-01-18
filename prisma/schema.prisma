@@ -28,14 +28,14 @@ enum ProductType {
 
 // Modelos
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
+  id           String   @id @default(cuid())
+  email        String   @unique
   passwordHash String
-  role         Role      @default(ADMIN)
-  createdAt    DateTime  @default(now())
-  
-  sales        Sale[]
-  expenses     Expense[]
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now())
+
+  sales    Sale[]
+  expenses Expense[]
 }
 
 model Product {
@@ -50,9 +50,9 @@ model Product {
   type        ProductType @default(PRODUCT)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  
-  saleItems   SaleItem[]
-  
+
+  saleItems SaleItem[]
+
   @@index([slug])
   @@index([isActive, isFeatured])
 }
@@ -70,7 +70,7 @@ model Banner {
   endsAt     DateTime?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
-  
+
   @@index([isActive, order])
 }
 
@@ -79,16 +79,16 @@ model Sale {
   date            DateTime      @default(now())
   subtotal        Float         @default(0) // Total antes de descuento
   discountPercent Float         @default(0) // Descuento en porcentaje (0-100)
-  total           Float         // Total final después de descuento
+  total           Float // Total final después de descuento
   paymentMethod   PaymentMethod
   customerName    String?
   notes           String?
   createdById     String
   createdAt       DateTime      @default(now())
-  
-  createdBy       User          @relation(fields: [createdById], references: [id])
-  items           SaleItem[]
-  
+
+  createdBy User       @relation(fields: [createdById], references: [id])
+  items     SaleItem[]
+
   @@index([date])
   @@index([createdById])
   @@index([paymentMethod])
@@ -102,10 +102,10 @@ model SaleItem {
   unitPriceSnapshot Float
   quantity          Int
   subtotal          Float
-  
-  sale              Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  product           Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  
+
+  sale    Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
   @@index([saleId])
 }
 
@@ -118,9 +118,9 @@ model Expense {
   notes         String?
   createdById   String
   createdAt     DateTime       @default(now())
-  
-  createdBy     User           @relation(fields: [createdById], references: [id])
-  
+
+  createdBy User @relation(fields: [createdById], references: [id])
+
   @@index([date])
   @@index([createdById])
   @@index([category])

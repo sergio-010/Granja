@@ -32,7 +32,7 @@ export default function BannersPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Confirm dialog
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [bannerToDelete, setBannerToDelete] = useState<{ id: string; title: string } | null>(null);
@@ -67,10 +67,10 @@ export default function BannersPage() {
     setBannerToDelete({ id, title });
     setConfirmOpen(true);
   };
-  
+
   const confirmDelete = async () => {
     if (!bannerToDelete) return;
-    
+
     try {
       await deleteBanner(bannerToDelete.id);
       toast.success('Banner eliminado');
@@ -203,7 +203,7 @@ export default function BannersPage() {
           />
         </DialogContent>
       </Dialog>
-      
+
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}

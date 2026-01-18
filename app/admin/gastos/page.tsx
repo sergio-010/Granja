@@ -53,7 +53,7 @@ export default function ExpensesPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // Confirm dialog
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [expenseToDelete, setExpenseToDelete] = useState<string | null>(null);
@@ -87,10 +87,10 @@ export default function ExpensesPage() {
     setExpenseToDelete(id);
     setConfirmOpen(true);
   };
-  
+
   const confirmDelete = async () => {
     if (!expenseToDelete) return;
-    
+
     try {
       await deleteExpense(expenseToDelete);
       toast.success('Gasto eliminado');
@@ -105,7 +105,7 @@ export default function ExpensesPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.amount || !formData.category) {
       toast.error('Completa los campos obligatorios');
       return;
@@ -115,7 +115,7 @@ export default function ExpensesPage() {
     try {
       const response = await fetch('/api/auth/session');
       const session = await response.json();
-      
+
       if (!session?.user?.id) {
         toast.error('No se pudo obtener el usuario actual');
         return;
@@ -177,7 +177,7 @@ export default function ExpensesPage() {
               </p>
             </div>
           </div>
-          <Button 
+          <Button
             onClick={() => setIsDialogOpen(true)}
             className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all"
           >
@@ -263,7 +263,7 @@ export default function ExpensesPage() {
               Completa los datos del gasto
             </DialogDescription>
           </DialogHeader>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="amount">Monto *</Label>
@@ -351,7 +351,7 @@ export default function ExpensesPage() {
           </form>
         </DialogContent>
       </Dialog>
-      
+
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}

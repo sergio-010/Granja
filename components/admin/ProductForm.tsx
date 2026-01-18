@@ -73,7 +73,7 @@ export function ProductForm({ product, onSuccess, onCancel }: ProductFormProps) 
         await createProduct(productData);
         toast.success('Producto creado exitosamente');
       }
-      
+
       onSuccess();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Error al guardar el producto');

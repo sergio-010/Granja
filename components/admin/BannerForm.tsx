@@ -81,7 +81,7 @@ export function BannerForm({ banner, onSuccess, onCancel }: BannerFormProps) {
         await createBanner(bannerData);
         toast.success('Banner creado exitosamente');
       }
-      
+
       onSuccess();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Error al guardar el banner');

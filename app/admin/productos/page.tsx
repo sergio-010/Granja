@@ -36,7 +36,7 @@ export default function ProductsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Confirm dialog
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<{ id: string; name: string } | null>(null);
@@ -81,10 +81,10 @@ export default function ProductsPage() {
     setProductToDelete({ id, name });
     setConfirmOpen(true);
   };
-  
+
   const confirmDelete = async () => {
     if (!productToDelete) return;
-    
+
     try {
       await deleteProduct(productToDelete.id);
       toast.success('Producto eliminado');
@@ -120,7 +120,7 @@ export default function ProductsPage() {
               </p>
             </div>
           </div>
-          <Button 
+          <Button
             onClick={handleCreate}
             className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all"
           >
@@ -178,7 +178,7 @@ export default function ProductsPage() {
                 <TableRow key={product.id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
                   <TableCell className="font-semibold text-base">{product.name}</TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant={product.type === 'PRODUCT' ? 'default' : 'secondary'}
                       className="font-medium"
                     >
@@ -187,7 +187,7 @@ export default function ProductsPage() {
                   </TableCell>
                   <TableCell className="font-bold text-green-600 text-base">{formatCurrency(product.price)}</TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant={product.isActive ? 'default' : 'outline'}
                       className={product.isActive ? 'bg-green-500 hover:bg-green-600' : ''}
                     >
@@ -249,7 +249,7 @@ export default function ProductsPage() {
           />
         </DialogContent>
       </Dialog>
-      
+
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}

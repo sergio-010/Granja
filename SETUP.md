@@ -3,6 +3,7 @@
 ## Pasos para ejecutar el proyecto
 
 ### 1. Crear archivo .env
+
 ```bash
 cp .env.example .env
 ```
@@ -10,11 +11,13 @@ cp .env.example .env
 Edita el archivo `.env` y configura tu DATABASE_URL con PostgreSQL.
 
 ### 2. Instalar dependencias (si no lo has hecho)
+
 ```bash
 npm install
 ```
 
 ### 3. Configurar base de datos
+
 ```bash
 # Generar cliente Prisma
 npx prisma generate
@@ -27,6 +30,7 @@ npm run prisma:seed
 ```
 
 ### 4. Iniciar servidor
+
 ```bash
 npm run dev
 ```
@@ -37,6 +41,7 @@ npm run dev
 - **Admin Login**: http://localhost:3000/admin/login
 
 **Credenciales por defecto:**
+
 - Email: `admin@veterinaria.com`
 - Password: `admin123`
 
@@ -64,16 +69,20 @@ npm run dev
 ## 🐛 Troubleshooting
 
 ### Error de conexión a la base de datos
+
 Verifica que PostgreSQL esté corriendo y que el DATABASE_URL sea correcto.
 
 ### Error "Module not found"
+
 Ejecuta `npm install` nuevamente.
 
 ### Errores de Prisma
+
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
 ### El admin no carga
+
 Verifica que hayas ejecutado el seed: `npm run prisma:seed`

@@ -54,10 +54,10 @@ export default function POSPage() {
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
-  
+
   // Cantidad al agregar
   const [addQuantity, setAddQuantity] = useState(1);
-  
+
   // Descuento en porcentaje
   const [discountPercent, setDiscountPercent] = useState<number>(0);
 
@@ -81,17 +81,17 @@ export default function POSPage() {
 
   const addToCart = (product: Product, quantity = addQuantity) => {
     const existing = cart.find((item) => item.productId === product.id);
-    
+
     if (existing) {
       const newQuantity = existing.quantity + quantity;
       setCart(
         cart.map((item) =>
           item.productId === product.id
             ? {
-                ...item,
-                quantity: newQuantity,
-                subtotal: item.unitPriceSnapshot * newQuantity,
-              }
+              ...item,
+              quantity: newQuantity,
+              subtotal: item.unitPriceSnapshot * newQuantity,
+            }
             : item
         )
       );
@@ -107,7 +107,7 @@ export default function POSPage() {
         },
       ]);
     }
-    
+
     setOpen(false);
     setAddQuantity(1);
     toast.success(`${quantity}x ${product.name} agregado al carrito`);
@@ -121,12 +121,12 @@ export default function POSPage() {
 
     const price = parseFloat(freeItemPrice);
     const quantity = parseInt(freeItemQuantity) || 1;
-    
+
     if (isNaN(price) || price <= 0) {
       toast.error('Precio inválido');
       return;
     }
-    
+
     if (quantity < 1) {
       toast.error('Cantidad inválida');
       return;
@@ -151,15 +151,15 @@ export default function POSPage() {
 
   const updateQuantity = (index: number, newQuantity: number) => {
     if (newQuantity < 1) return;
-    
+
     setCart(
       cart.map((item, i) =>
         i === index
           ? {
-              ...item,
-              quantity: newQuantity,
-              subtotal: item.unitPriceSnapshot * newQuantity,
-            }
+            ...item,
+            quantity: newQuantity,
+            subtotal: item.unitPriceSnapshot * newQuantity,
+          }
           : item
       )
     );
@@ -170,9 +170,9 @@ export default function POSPage() {
   };
 
   const subtotalAmount = cart.reduce((sum, item) => sum + item.subtotal, 0);
-  
+
   const discountAmount = (subtotalAmount * discountPercent) / 100;
-    
+
   const total = Math.max(0, subtotalAmount - discountAmount);
 
   const handleSubmit = async () => {
@@ -199,7 +199,7 @@ export default function POSPage() {
       });
 
       toast.success('¡Venta registrada exitosamente!');
-      
+
       // Limpiar formulario
       setCart([]);
       setPaymentMethod('CASH');
@@ -207,7 +207,7 @@ export default function POSPage() {
       setNotes('');
       setDiscountPercent(0);
       setAddQuantity(1);
-      
+
       router.refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Error al registrar la venta');
@@ -253,42 +253,42 @@ export default function POSPage() {
                     </Label>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           className="w-full justify-start h-14 border-2 hover:border-green-500 transition-all text-base"
                         >
                           <Search className="mr-3 h-5 w-5 text-green-600" />
                           <span className="text-muted-foreground">Buscar producto o servicio...</span>
                         </Button>
-                    </PopoverTrigger>
-                <PopoverContent className="w-[400px] p-0" align="start">
-                  <Command>
-                    <CommandInput placeholder="Buscar..." className="h-12" />
-                    <CommandList>
-                      <CommandEmpty>No se encontraron productos</CommandEmpty>
-                      <CommandGroup>
-                        {products.map((product) => (
-                          <CommandItem
-                            key={product.id}
-                            onSelect={() => addToCart(product)}
-                            className="cursor-pointer py-3 hover:bg-green-50 dark:hover:bg-gray-800"
-                          >
-                            <div className="flex items-center justify-between w-full">
-                              <div>
-                                <div className="font-medium">{product.name}</div>
-                                <Badge variant="secondary" className="text-xs mt-1">
-                                  {product.type === 'PRODUCT' ? '📦 Producto' : '🛠️ Servicio'}
-                                </Badge>
-                              </div>
-                              <div className="font-bold text-green-600">{formatCurrency(product.price)}</div>
-                            </div>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[400px] p-0" align="start">
+                        <Command>
+                          <CommandInput placeholder="Buscar..." className="h-12" />
+                          <CommandList>
+                            <CommandEmpty>No se encontraron productos</CommandEmpty>
+                            <CommandGroup>
+                              {products.map((product) => (
+                                <CommandItem
+                                  key={product.id}
+                                  onSelect={() => addToCart(product)}
+                                  className="cursor-pointer py-3 hover:bg-green-50 dark:hover:bg-gray-800"
+                                >
+                                  <div className="flex items-center justify-between w-full">
+                                    <div>
+                                      <div className="font-medium">{product.name}</div>
+                                      <Badge variant="secondary" className="text-xs mt-1">
+                                        {product.type === 'PRODUCT' ? '📦 Producto' : '🛠️ Servicio'}
+                                      </Badge>
+                                    </div>
+                                    <div className="font-bold text-green-600">{formatCurrency(product.price)}</div>
+                                  </div>
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                   </div>
                   <div className="w-48">
                     <Label className="text-sm font-bold mb-2 block text-center text-green-600">
@@ -297,12 +297,12 @@ export default function POSPage() {
                     <Input
                       id="quantity"
                       type="number"
-                        min="1"
-                        value={addQuantity}
-                        onChange={(e) => setAddQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                        placeholder="1"
-                        className="h-14 text-center font-bold text-3xl border-2 border-green-500 focus:border-green-600"
-                      />
+                      min="1"
+                      value={addQuantity}
+                      onChange={(e) => setAddQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      placeholder="1"
+                      className="h-14 text-center font-bold text-3xl border-2 border-green-500 focus:border-green-600"
+                    />
                   </div>
                 </div>
               </div>
@@ -359,7 +359,7 @@ export default function POSPage() {
                       />
                     </div>
                   </div>
-                  <Button 
+                  <Button
                     onClick={addFreeItem}
                     className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-base font-bold"
                   >

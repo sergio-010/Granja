@@ -273,27 +273,27 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent className="pt-6">
                 <ResponsiveContainer width="100%" height={350}>
-                  <LineChart 
+                  <LineChart
                     data={salesByDay}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <defs>
                       <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
                       </linearGradient>
                       <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0.1}/>
+                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0.1} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.5} />
-                    <XAxis 
-                      dataKey="date" 
+                    <XAxis
+                      dataKey="date"
                       stroke="#6b7280"
                       style={{ fontSize: '12px' }}
                     />
-                    <YAxis 
+                    <YAxis
                       stroke="#6b7280"
                       style={{ fontSize: '12px' }}
                       tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
@@ -307,7 +307,7 @@ export default function DashboardPage() {
                       }}
                       formatter={(value: number) => formatCurrency(value)}
                     />
-                    <Legend 
+                    <Legend
                       wrapperStyle={{ paddingTop: '20px' }}
                       iconType="circle"
                     />
@@ -350,20 +350,20 @@ export default function DashboardPage() {
                   <PieChart>
                     <defs>
                       <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#3b82f6" stopOpacity={1}/>
-                        <stop offset="100%" stopColor="#2563eb" stopOpacity={1}/>
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
+                        <stop offset="100%" stopColor="#2563eb" stopOpacity={1} />
                       </linearGradient>
                       <linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity={1}/>
-                        <stop offset="100%" stopColor="#059669" stopOpacity={1}/>
+                        <stop offset="0%" stopColor="#10b981" stopOpacity={1} />
+                        <stop offset="100%" stopColor="#059669" stopOpacity={1} />
                       </linearGradient>
                       <linearGradient id="grad3" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#f59e0b" stopOpacity={1}/>
-                        <stop offset="100%" stopColor="#d97706" stopOpacity={1}/>
+                        <stop offset="0%" stopColor="#f59e0b" stopOpacity={1} />
+                        <stop offset="100%" stopColor="#d97706" stopOpacity={1} />
                       </linearGradient>
                       <linearGradient id="grad4" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#ef4444" stopOpacity={1}/>
-                        <stop offset="100%" stopColor="#dc2626" stopOpacity={1}/>
+                        <stop offset="0%" stopColor="#ef4444" stopOpacity={1} />
+                        <stop offset="100%" stopColor="#dc2626" stopOpacity={1} />
                       </linearGradient>
                     </defs>
                     <Pie
