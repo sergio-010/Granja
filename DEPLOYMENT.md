@@ -15,6 +15,7 @@ Este proyecto está optimizado para deployment en Vercel.
 ### Opciones recomendadas:
 
 #### 1. **Vercel Postgres** (Recomendado - Más fácil)
+
 ```bash
 # Instalar desde Vercel Dashboard
 # Storage → Create Database → Postgres
@@ -22,16 +23,19 @@ Este proyecto está optimizado para deployment en Vercel.
 ```
 
 #### 2. **Neon** (Gratis, Serverless Postgres)
+
 - Web: https://neon.tech
 - Gratis hasta 0.5GB
 - Setup rápido
 
 #### 3. **Supabase** (Postgres + Auth + Storage)
+
 - Web: https://supabase.com
 - Incluye database, auth, storage
 - Generoso plan gratuito
 
 #### 4. **PlanetScale** (MySQL serverless)
+
 - Web: https://planetscale.com
 - MySQL compatible
 - Buena capa gratuita
@@ -79,6 +83,7 @@ NEXT_PUBLIC_ADDRESS=Tu dirección
 ```
 
 **Generar NEXTAUTH_SECRET seguro:**
+
 ```bash
 openssl rand -base64 32
 ```
@@ -88,6 +93,7 @@ openssl rand -base64 32
 #### Opción A: Desde GitHub (Recomendado)
 
 1. Sube tu código a GitHub:
+
 ```bash
 git init
 git add .
@@ -130,6 +136,7 @@ npx prisma db seed
 ```
 
 **IMPORTANTE:** Ejecuta estos comandos en Vercel usando:
+
 - Vercel Dashboard → Settings → Functions → Command Override
 - O crea un script `postbuild` en package.json
 
@@ -148,6 +155,7 @@ Agrega a `package.json`:
 ## 🔐 Seguridad
 
 ✅ **Configurado:**
+
 - Rate limiting implementado
 - Validaciones en servidor
 - Autenticación con NextAuth
@@ -155,6 +163,7 @@ Agrega a `package.json`:
 - CSRF protection
 
 ⚠️ **Por hacer en producción:**
+
 1. Cambiar `NEXTAUTH_SECRET` a uno seguro
 2. Configurar dominio personalizado
 3. Habilitar HTTPS (automático en Vercel)
@@ -163,6 +172,7 @@ Agrega a `package.json`:
 ## 📊 Monitoreo
 
 Vercel provee automáticamente:
+
 - Analytics de performance
 - Logs en tiempo real
 - Error tracking
@@ -171,31 +181,37 @@ Vercel provee automáticamente:
 ## 🔄 Actualizaciones
 
 Con GitHub conectado:
+
 ```bash
 git add .
 git commit -m "Tu cambio"
 git push
 ```
+
 Vercel deployará automáticamente.
 
 ## 🆘 Troubleshooting
 
 ### Error: "Module not found"
+
 ```bash
 npm install
 npm run build
 ```
 
 ### Error: "Database connection failed"
+
 - Verifica que DATABASE_URL esté correctamente configurado
 - Asegúrate que la DB acepte conexiones externas
 - Revisa que usaste PostgreSQL en lugar de SQLite
 
 ### Error: "NEXTAUTH_URL mismatch"
+
 - Actualiza NEXTAUTH_URL con tu dominio de Vercel
 - Reinicia el deployment
 
 ### Prisma no genera tablas
+
 ```bash
 # En local, crea y aplica migración
 npx prisma migrate dev --name init
@@ -215,4 +231,5 @@ npx prisma migrate dev --name init
 Tu app estará disponible en: `https://tu-proyecto.vercel.app`
 
 ### Dominios personalizados
+
 Ve a Vercel Dashboard → Settings → Domains para agregar tu dominio.
