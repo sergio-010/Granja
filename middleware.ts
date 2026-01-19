@@ -3,7 +3,9 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("authjs.session-token") || request.cookies.get("__Secure-authjs.session-token");
+  const token =
+    request.cookies.get("authjs.session-token") ||
+    request.cookies.get("__Secure-authjs.session-token");
 
   // Proteger rutas /admin excepto /admin/login
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
