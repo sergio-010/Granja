@@ -89,16 +89,21 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Sidebar Mobile - visible en móvil */}
-      {isMobileMenuOpen && (
-        <>
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={closeMobileMenu}
-          />
+      <>
+        {/* Overlay */}
+        <div
+          className={cn(
+            "fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300",
+            isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          )}
+          onClick={closeMobileMenu}
+        />
 
-          {/* Menú Mobile */}
-          <aside className="fixed inset-y-0 left-0 w-64 z-50 flex flex-col border-r bg-white dark:bg-gray-900 shadow-xl lg:hidden transform transition-transform duration-300">
+        {/* Menú Mobile */}
+        <aside className={cn(
+          "fixed inset-y-0 left-0 w-64 z-50 flex flex-col border-r bg-white dark:bg-gray-900 shadow-xl lg:hidden transition-transform duration-300 ease-in-out",
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        )}>
             <div className="p-6 border-b bg-gradient-to-r from-green-600 to-emerald-600">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -157,13 +162,12 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </div>
           </aside>
         </>
-      )}
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Topbar */}
         <header className="h-16 border-b bg-white dark:bg-gray-900 shadow-sm flex items-center justify-between px-4 lg:px-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Botón hamburguesa para móvil */}
             <Button
               variant="ghost"
@@ -175,8 +179,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </Button>
 
             <div className="hidden lg:block w-2 h-8 bg-gradient-to-b from-green-600 to-emerald-600 rounded-full"></div>
-            <h2 className="text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              {isMobileMenuOpen ? '' : 'La Granja de Pipe'}
+            <h2 className="text-sm sm:text-base lg:text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent truncate">
+              La Granja de Pipe
             </h2>
           </div>
           <div className="flex items-center gap-2">

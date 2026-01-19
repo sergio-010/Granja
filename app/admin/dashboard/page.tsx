@@ -1,9 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { DollarSign, TrendingUp, TrendingDown, ShoppingCart } from 'lucide-react';
+import { DollarSign, TrendingUp, TrendingDown, ShoppingCart, Plus, Menu as MenuIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
 import { getSalesStats, getSalesByDay, getSales } from '@/lib/actions/sale-actions';
 import { getExpensesStats, getExpensesByDay } from '@/lib/actions/expense-actions';
 import { getDateRange, DatePeriod } from '@/lib/dateRange';
@@ -148,16 +159,67 @@ export default function DashboardPage() {
             Vista general de ventas, gastos y utilidades
           </p>
         </div>
-        <Tabs value={period} onValueChange={(v) => setPeriod(v as DatePeriod)} className="w-full sm:w-auto">
-          <TabsList className="grid grid-cols-3 sm:grid-cols-6 w-full sm:w-auto">
-            <TabsTrigger value="today" className="text-xs sm:text-sm">Hoy</TabsTrigger>
-            <TabsTrigger value="week" className="text-xs sm:text-sm">Semana</TabsTrigger>
-            <TabsTrigger value="biweekly" className="text-xs sm:text-sm">Quincena</TabsTrigger>
-            <TabsTrigger value="month" className="text-xs sm:text-sm">Mes</TabsTrigger>
-            <TabsTrigger value="semester" className="text-xs sm:text-sm">Semestre</TabsTrigger>
-            <TabsTrigger value="year" className="text-xs sm:text-sm">Año</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        
+        {/* Botón de acciones rápidas para móvil */}
+        <div className="sm:hidden flex gap-2">
+          <Select value={period} onValueChange={(v) => setPeriod(v as DatePeriod)}>
+            <SelectTrigger className="flex-1 h-11">
+              <SelectValue placeholder="Seleccionar período" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="today">📅 Hoy</SelectItem>
+              <SelectItem value="week">📅 Esta Semana</SelectItem>
+              <SelectItem value="biweekly">📅 Quincena</SelectItem>
+              <SelectItem value="month">📅 Este Mes</SelectItem>
+              <SelectItem value="semester">📅 Semestre</SelectItem>
+              <SelectItem value="year">📅 Este Año</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" className="h-11 w-11 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
+                <Plus className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuLabel>Acciones Rápidas</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/admin/pos" className="flex items-center gap-2 cursor-pointer">
+                  <ShoppingCart className="h-4 w-4" />
+                  <span>Punto de Venta</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/admin/ventas" className="flex items-center gap-2 cursor-pointer">
+                  <DollarSign className="h-4 w-4" />
+                  <span>Ver Ventas</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/admin/gastos" className="flex items-center gap-2 cursor-pointer">
+                  <TrendingDown className="h-4 w-4" />
+                  <span>Registrar Gasto</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        {/* Select para desktop - solo período */}
+        <div className="hidden sm:block">
+          <Tabs value={period} onValueChange={(v) => setPeriod(v as DatePeriod)} className="w-auto">
+            <TabsList>
+              <TabsTrigger value="today">Hoy</TabsTrigger>
+              <TabsTrigger value="week">Semana</TabsTrigger>
+              <TabsTrigger value="biweekly">Quincena</TabsTrigger>
+              <TabsTrigger value="month">Mes</TabsTrigger>
+              <TabsTrigger value="semester">Semestre</TabsTrigger>
+              <TabsTrigger value="year">Año</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
 
       {isLoading ? (
