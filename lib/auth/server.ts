@@ -1,5 +1,5 @@
-import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 /**
  * Verifica que el usuario esté autenticado
@@ -8,11 +8,11 @@ import { redirect } from 'next/navigation';
  */
 export async function requireAuth() {
   const session = await auth();
-  
+
   if (!session || !session.user) {
-    redirect('/admin/login');
+    redirect("/admin/login");
   }
-  
+
   return session;
 }
 
@@ -22,13 +22,13 @@ export async function requireAuth() {
  * @returns Session del usuario autenticado
  * @throws Error si no tiene el rol requerido
  */
-export async function requireRole(role: 'ADMIN' | 'SUPER_ADMIN') {
+export async function requireRole(role: "ADMIN" | "SUPER_ADMIN") {
   const session = await requireAuth();
-  
-  if (session.user.role !== role && session.user.role !== 'SUPER_ADMIN') {
-    throw new Error('No tienes permisos para realizar esta acción');
+
+  if (session.user.role !== role && session.user.role !== "SUPER_ADMIN") {
+    throw new Error("No tienes permisos para realizar esta acción");
   }
-  
+
   return session;
 }
 

@@ -43,26 +43,30 @@ setInterval(cleanupExpiredEntries, 5 * 60 * 1000);
  */
 export function checkRateLimit(
   identifier: string,
-  options: Partial<RateLimitOptions> = {}
+  options: Partial<RateLimitOptions> = {},
 ): { allowed: boolean; remaining: number; resetAt: number } {
   const config = { ...DEFAULT_OPTIONS, ...options };
   const now = Date.now();
-  
+
   const entry = rateLimitMap.get(identifier);
-  
+
   // Si no existe o ya expiró, crear nueva entrada
   if (!entry || now > entry.resetAt) {
     const resetAt = now + config.interval;
     rateLimitMap.set(identifier, { count: 1, resetAt });
     return { allowed: true, remaining: config.maxRequests - 1, resetAt };
   }
-  
+
   // Si aún está dentro del límite
   if (entry.count < config.maxRequests) {
     entry.count++;
-    return { allowed: true, remaining: config.maxRequests - entry.count, resetAt: entry.resetAt };
+    return {
+      allowed: true,
+      remaining: config.maxRequests - entry.count,
+      resetAt: entry.resetAt,
+    };
   }
-  
+
   // Excedió el límite
   return { allowed: false, remaining: 0, resetAt: entry.resetAt };
 }
@@ -72,18 +76,18 @@ export function checkRateLimit(
  */
 export function getClientIP(headers: Headers): string {
   // Verifica varios headers comunes de proxies
-  const forwarded = headers.get('x-forwarded-for');
+  const forwarded = headers.get("x-forwarded-for");
   if (forwarded) {
-    return forwarded.split(',')[0].trim();
+    return forwarded.split(",")[0].trim();
   }
-  
-  const realIP = headers.get('x-real-ip');
+
+  const realIP = headers.get("x-real-ip");
   if (realIP) {
     return realIP;
   }
-  
+
   // Fallback a un valor por defecto
-  return 'unknown';
+  return "unknown";
 }
 
 /**
@@ -91,39 +95,44 @@ export function getClientIP(headers: Headers): string {
  */
 export function withRateLimit(
   handler: (request: Request) => Promise<Response>,
-  options?: Partial<RateLimitOptions>
+  options?: Partial<RateLimitOptions>,
 ) {
   return async (request: Request): Promise<Response> => {
     const ip = getClientIP(request.headers);
     const { allowed, remaining, resetAt } = checkRateLimit(ip, options);
-    
+
     if (!allowed) {
       return new Response(
-        JSON.stringify({ 
-          error: 'Too many requests',
-          message: 'Por favor, espera un momento antes de intentar de nuevo',
+        JSON.stringify({
+          error: "Too many requests",
+          message: "Por favor, espera un momento antes de intentar de nuevo",
           resetAt: new Date(resetAt).toISOString(),
         }),
         {
           status: 429,
           headers: {
-            'Content-Type': 'application/json',
-            'Retry-After': String(Math.ceil((resetAt - Date.now()) / 1000)),
-            'X-RateLimit-Limit': String(options?.maxRequests || DEFAULT_OPTIONS.maxRequests),
-            'X-RateLimit-Remaining': '0',
-            'X-RateLimit-Reset': String(resetAt),
+            "Content-Type": "application/json",
+            "Retry-After": String(Math.ceil((resetAt - Date.now()) / 1000)),
+            "X-RateLimit-Limit": String(
+              options?.maxRequests || DEFAULT_OPTIONS.maxRequests,
+            ),
+            "X-RateLimit-Remaining": "0",
+            "X-RateLimit-Reset": String(resetAt),
           },
-        }
+        },
       );
     }
-    
+
     const response = await handler(request);
-    
+
     // Agregar headers de rate limit a la respuesta
-    response.headers.set('X-RateLimit-Limit', String(options?.maxRequests || DEFAULT_OPTIONS.maxRequests));
-    response.headers.set('X-RateLimit-Remaining', String(remaining));
-    response.headers.set('X-RateLimit-Reset', String(resetAt));
-    
+    response.headers.set(
+      "X-RateLimit-Limit",
+      String(options?.maxRequests || DEFAULT_OPTIONS.maxRequests),
+    );
+    response.headers.set("X-RateLimit-Remaining", String(remaining));
+    response.headers.set("X-RateLimit-Reset", String(resetAt));
+
     return response;
   };
 }

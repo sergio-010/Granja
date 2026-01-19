@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import { toast } from 'sonner';
+import { useState, useCallback } from "react";
+import { toast } from "sonner";
 
 interface AsyncState<T> {
   data: T | null;
@@ -22,7 +22,7 @@ interface UseAsyncOptions<T = unknown> {
  */
 export function useAsync<T = unknown>(
   asyncFunction: (...args: unknown[]) => Promise<T>,
-  options: UseAsyncOptions<T> = {}
+  options: UseAsyncOptions<T> = {},
 ) {
   const [state, setState] = useState<AsyncState<T>>({
     data: null,
@@ -39,24 +39,25 @@ export function useAsync<T = unknown>(
         setState({ data, isLoading: false, error: null });
 
         if (options.showSuccessToast) {
-          toast.success(options.successMessage || 'Operación exitosa');
+          toast.success(options.successMessage || "Operación exitosa");
         }
 
         options.onSuccess?.(data);
         return data;
       } catch (error) {
-        const err = error instanceof Error ? error : new Error('Error desconocido');
+        const err =
+          error instanceof Error ? error : new Error("Error desconocido");
         setState({ data: null, isLoading: false, error: err });
 
         if (options.showErrorToast !== false) {
-          toast.error(err.message || 'Ocurrió un error');
+          toast.error(err.message || "Ocurrió un error");
         }
 
         options.onError?.(err);
         throw err;
       }
     },
-    [asyncFunction, options]
+    [asyncFunction, options],
   );
 
   const reset = useCallback(() => {

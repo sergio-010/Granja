@@ -4,16 +4,16 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'placehold.co',
+        protocol: "https",
+        hostname: "placehold.co",
       },
       {
-        protocol: 'https',
-        hostname: '**.cloudinary.com',
+        protocol: "https",
+        hostname: "**.cloudinary.com",
       },
       {
-        protocol: 'https',
-        hostname: '**.imgur.com',
+        protocol: "https",
+        hostname: "**.imgur.com",
       },
     ],
   },

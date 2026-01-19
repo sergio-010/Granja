@@ -30,24 +30,24 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      
-      <div className="min-h-screen bg-background">
-      <PublicHeader />
-      
-      <main>
-        <HeroSection whatsappNumber={SITE_CONFIG.contact.whatsapp} />
-        <BannersSection banners={banners} />
-        <FeaturesSection />
-        <FeaturedProductsSection products={featuredProducts} />
-        <CTASection whatsappNumber={SITE_CONFIG.contact.whatsapp} />
-      </main>
 
-      <PublicFooter 
-        whatsappNumber={SITE_CONFIG.contact.whatsapp}
-        email={SITE_CONFIG.contact.email}
-        address={SITE_CONFIG.contact.address}
-      />
-    </div>
+      <div className="min-h-screen bg-background">
+        <PublicHeader />
+
+        <main>
+          <HeroSection whatsappNumber={SITE_CONFIG.contact.whatsapp} />
+          <BannersSection banners={banners} />
+          <FeaturesSection />
+          <FeaturedProductsSection products={featuredProducts} />
+          <CTASection whatsappNumber={SITE_CONFIG.contact.whatsapp} />
+        </main>
+
+        <PublicFooter
+          whatsappNumber={SITE_CONFIG.contact.whatsapp}
+          email={SITE_CONFIG.contact.email}
+          address={SITE_CONFIG.contact.address}
+        />
+      </div>
     </>
   );
 }

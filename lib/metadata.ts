@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
-import { SITE_CONFIG } from './constants';
+import { Metadata } from "next";
+import { SITE_CONFIG } from "./constants";
 
 /**
  * Metadata por defecto del sitio
@@ -11,26 +11,28 @@ export const defaultMetadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
-    'veterinaria',
-    'mascotas',
-    'cuidado animal',
-    'servicios veterinarios',
-    'consulta veterinaria',
-    'emergencias veterinarias',
+    "veterinaria",
+    "mascotas",
+    "cuidado animal",
+    "servicios veterinarios",
+    "consulta veterinaria",
+    "emergencias veterinarias",
   ],
   authors: [{ name: SITE_CONFIG.name }],
   creator: SITE_CONFIG.name,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  ),
   openGraph: {
-    type: 'website',
-    locale: 'es_ES',
-    url: '/',
+    type: "website",
+    locale: "es_ES",
+    url: "/",
     title: SITE_CONFIG.name,
     description: SITE_CONFIG.description,
     siteName: SITE_CONFIG.name,
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: SITE_CONFIG.name,
     description: SITE_CONFIG.description,
   },
@@ -40,9 +42,9 @@ export const defaultMetadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
@@ -57,19 +59,22 @@ export function generateProductMetadata(product: {
   imageUrl: string | null;
 }): Metadata {
   const title = `${product.name} - Servicios`;
-  const description = product.description || `${product.name} disponible en ${SITE_CONFIG.name}`;
-  
+  const description =
+    product.description || `${product.name} disponible en ${SITE_CONFIG.name}`;
+
   return {
     title,
     description,
     openGraph: {
       title,
       description,
-      type: 'website',
-      images: product.imageUrl ? [{ url: product.imageUrl, alt: product.name }] : [],
+      type: "website",
+      images: product.imageUrl
+        ? [{ url: product.imageUrl, alt: product.name }]
+        : [],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: product.imageUrl ? [product.imageUrl] : [],
@@ -80,7 +85,10 @@ export function generateProductMetadata(product: {
 /**
  * Genera metadata para páginas del admin
  */
-export function generateAdminMetadata(title: string, description?: string): Metadata {
+export function generateAdminMetadata(
+  title: string,
+  description?: string,
+): Metadata {
   return {
     title: `${title} - Admin`,
     description: description || `Panel de administración - ${title}`,
@@ -96,13 +104,13 @@ export function generateAdminMetadata(title: string, description?: string): Meta
  */
 export function generateErrorMetadata(errorCode: number): Metadata {
   const titles: Record<number, string> = {
-    404: 'Página no encontrada',
-    500: 'Error del servidor',
-    403: 'Acceso denegado',
+    404: "Página no encontrada",
+    500: "Error del servidor",
+    403: "Acceso denegado",
   };
-  
+
   return {
-    title: titles[errorCode] || 'Error',
+    title: titles[errorCode] || "Error",
     robots: {
       index: false,
       follow: false,
@@ -115,30 +123,30 @@ export function generateErrorMetadata(errorCode: number): Metadata {
  */
 export function generateOrganizationSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'VeterinaryCare',
+    "@context": "https://schema.org",
+    "@type": "VeterinaryCare",
     name: SITE_CONFIG.name,
     description: SITE_CONFIG.description,
-    url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+    url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
     telephone: `+${SITE_CONFIG.contact.whatsapp}`,
     email: SITE_CONFIG.contact.email,
     address: {
-      '@type': 'PostalAddress',
+      "@type": "PostalAddress",
       addressLocality: SITE_CONFIG.contact.address,
     },
     openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
+      "@type": "OpeningHoursSpecification",
       dayOfWeek: [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday',
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
       ],
-      opens: '00:00',
-      closes: '23:59',
+      opens: "00:00",
+      closes: "23:59",
     },
   };
 }
@@ -153,16 +161,16 @@ export function generateProductSchema(product: {
   imageUrl: string | null;
 }) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
+    "@context": "https://schema.org",
+    "@type": "Service",
     name: product.name,
     description: product.description,
     image: product.imageUrl,
     offers: {
-      '@type': 'Offer',
+      "@type": "Offer",
       price: product.price,
-      priceCurrency: 'BOB',
-      availability: 'https://schema.org/InStock',
+      priceCurrency: "BOB",
+      availability: "https://schema.org/InStock",
     },
   };
 }

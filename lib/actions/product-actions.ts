@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { generateUniqueSlug } from "@/lib/slug";
 import { requireAuth } from "@/lib/auth/server";
-import { 
-  nameSchema, 
-  descriptionSchema, 
-  priceSchema, 
+import {
+  nameSchema,
+  descriptionSchema,
+  priceSchema,
   urlSchema,
   idSchema,
 } from "@/lib/validations";
@@ -44,7 +44,7 @@ export async function getProductBySlug(slug: string) {
 export async function createProduct(data: z.infer<typeof productSchema>) {
   // Verificar autenticación
   await requireAuth();
-  
+
   // Validar datos
   const validated = productSchema.parse(data);
 
@@ -74,7 +74,7 @@ export async function updateProduct(
 ) {
   // Verificar autenticación
   await requireAuth();
-  
+
   // Validar ID y datos
   const validId = idSchema.parse(id);
   const validated = productSchema.parse(data);
@@ -113,10 +113,10 @@ export async function updateProduct(
 export async function deleteProduct(id: string) {
   // Verificar autenticación
   await requireAuth();
-  
+
   // Validar ID
   const validId = idSchema.parse(id);
-  
+
   await prisma.product.delete({
     where: { id: validId },
   });
