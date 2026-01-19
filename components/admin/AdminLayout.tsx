@@ -92,11 +92,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       {isMobileMenuOpen && (
         <>
           {/* Overlay */}
-          <div 
+          <div
             className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={closeMobileMenu}
           />
-          
+
           {/* Menú Mobile */}
           <aside className="fixed inset-y-0 left-0 w-64 z-50 flex flex-col border-r bg-white dark:bg-gray-900 shadow-xl lg:hidden transform transition-transform duration-300">
             <div className="p-6 border-b bg-gradient-to-r from-green-600 to-emerald-600">
@@ -173,7 +173,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             >
               <Menu className="h-5 w-5" />
             </Button>
-            
+
             <div className="hidden lg:block w-2 h-8 bg-gradient-to-b from-green-600 to-emerald-600 rounded-full"></div>
             <h2 className="text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
               {isMobileMenuOpen ? '' : 'La Granja de Pipe'}

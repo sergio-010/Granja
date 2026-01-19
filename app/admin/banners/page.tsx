@@ -116,58 +116,95 @@ export default function BannersPage() {
           {/* Vista de tabla en desktop */}
           <div className="hidden md:block border rounded-lg overflow-x-auto">
             <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Orden</TableHead>
-                <TableHead>Título</TableHead>
-                <TableHead>Estado</TableHead>
-                <TableHead>Fechas</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {banners.map((banner) => (
-                <TableRow key={banner.id}>
-                  <TableCell className="font-mono">{banner.order}</TableCell>
-                  <TableCell>
-                    <div>
-                      <div className="font-medium">{banner.title}</div>
-                      {banner.subtitle && (
-                        <div className="text-sm text-muted-foreground">
-                          {banner.subtitle}
-                        </div>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={banner.isActive ? 'default' : 'outline'}>
-                      {banner.isActive ? 'Activo' : 'Inactivo'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {banner.startsAt || banner.endsAt ? (
-                      <div className="text-sm">
-                        {banner.startsAt && (
-                          <div>
-                            Desde: {format(new Date(banner.startsAt), 'dd/MM/yyyy', { locale: es })}
-                          </div>
-                        )}
-                        {banner.endsAt && (
-                          <div>
-                            Hasta: {format(new Date(banner.endsAt), 'dd/MM/yyyy', { locale: es })}
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Orden</TableHead>
+                  <TableHead>Título</TableHead>
+                  <TableHead>Estado</TableHead>
+                  <TableHead>Fechas</TableHead>
+                  <TableHead className="text-right">Acciones</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {banners.map((banner) => (
+                  <TableRow key={banner.id}>
+                    <TableCell className="font-mono">{banner.order}</TableCell>
+                    <TableCell>
+                      <div>
+                        <div className="font-medium">{banner.title}</div>
+                        {banner.subtitle && (
+                          <div className="text-sm text-muted-foreground">
+                            {banner.subtitle}
                           </div>
                         )}
                       </div>
-                    ) : (
-                      <span className="text-muted-foreground">Siempre</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={banner.isActive ? 'default' : 'outline'}>
+                        {banner.isActive ? 'Activo' : 'Inactivo'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {banner.startsAt || banner.endsAt ? (
+                        <div className="text-sm">
+                          {banner.startsAt && (
+                            <div>
+                              Desde: {format(new Date(banner.startsAt), 'dd/MM/yyyy', { locale: es })}
+                            </div>
+                          )}
+                          {banner.endsAt && (
+                            <div>
+                              Hasta: {format(new Date(banner.endsAt), 'dd/MM/yyyy', { locale: es })}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground">Siempre</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEdit(banner)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(banner.id, banner.title)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Vista de tarjetas en móvil */}
+          <div className="md:hidden space-y-4">
+            {banners.map((banner) => (
+              <Card key={banner.id} className="border-2">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <Badge variant="secondary" className="mb-2">Orden: {banner.order}</Badge>
+                      <h3 className="font-bold text-lg">{banner.title}</h3>
+                      {banner.subtitle && (
+                        <p className="text-sm text-muted-foreground mt-1">{banner.subtitle}</p>
+                      )}
+                    </div>
+                    <div className="flex gap-2">
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => handleEdit(banner)}
+                        className="h-8 w-8"
                       >
                         <Pencil className="h-4 w-4" />
                       </Button>
@@ -175,69 +212,32 @@ export default function BannersPage() {
                         variant="ghost"
                         size="icon"
                         onClick={() => handleDelete(banner.id, banner.title)}
+                        className="h-8 w-8 hover:bg-red-100 hover:text-red-600"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-
-        {/* Vista de tarjetas en móvil */}
-        <div className="md:hidden space-y-4">
-          {banners.map((banner) => (
-            <Card key={banner.id} className="border-2">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <Badge variant="secondary" className="mb-2">Orden: {banner.order}</Badge>
-                    <h3 className="font-bold text-lg">{banner.title}</h3>
-                    {banner.subtitle && (
-                      <p className="text-sm text-muted-foreground mt-1">{banner.subtitle}</p>
-                    )}
                   </div>
                   <div className="flex gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleEdit(banner)}
-                      className="h-8 w-8"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDelete(banner.id, banner.title)}
-                      className="h-8 w-8 hover:bg-red-100 hover:text-red-600"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <Badge variant={banner.isActive ? 'default' : 'outline'}>
+                      {banner.isActive ? '✓ Activo' : '✕ Inactivo'}
+                    </Badge>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <Badge variant={banner.isActive ? 'default' : 'outline'}>
-                    {banner.isActive ? '✓ Activo' : '✕ Inactivo'}
-                  </Badge>
-                </div>
-                {(banner.startsAt || banner.endsAt) && (
-                  <div className="text-sm pt-2 border-t">
-                    {banner.startsAt && (
-                      <div>Desde: {format(new Date(banner.startsAt), 'dd/MM/yyyy', { locale: es })}</div>
-                    )}
-                    {banner.endsAt && (
-                      <div>Hasta: {format(new Date(banner.endsAt), 'dd/MM/yyyy', { locale: es })}</div>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </>
+                  {(banner.startsAt || banner.endsAt) && (
+                    <div className="text-sm pt-2 border-t">
+                      {banner.startsAt && (
+                        <div>Desde: {format(new Date(banner.startsAt), 'dd/MM/yyyy', { locale: es })}</div>
+                      )}
+                      {banner.endsAt && (
+                        <div>Hasta: {format(new Date(banner.endsAt), 'dd/MM/yyyy', { locale: es })}</div>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </>
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
