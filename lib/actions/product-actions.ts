@@ -3,13 +3,21 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { generateUniqueSlug } from "@/lib/slug";
+import { requireAuth } from "@/lib/auth/server";
+import { 
+  nameSchema, 
+  descriptionSchema, 
+  priceSchema, 
+  urlSchema,
+  idSchema,
+} from "@/lib/validations";
 import { z } from "zod";
 
 const productSchema = z.object({
-  name: z.string().min(1, "El nombre es requerido"),
-  description: z.string().optional(),
-  price: z.number().positive("El precio debe ser positivo"),
-  imageUrl: z.string().url().optional().or(z.literal("")),
+  name: nameSchema,
+  description: descriptionSchema,
+  price: priceSchema,
+  imageUrl: urlSchema,
   isActive: z.boolean().default(true),
   isFeatured: z.boolean().default(false),
   type: z.enum(["PRODUCT", "SERVICE"]),
@@ -34,6 +42,10 @@ export async function getProductBySlug(slug: string) {
 }
 
 export async function createProduct(data: z.infer<typeof productSchema>) {
+  // Verificar autenticación
+  await requireAuth();
+  
+  // Validar datos
   const validated = productSchema.parse(data);
 
   const slug = await generateUniqueSlug(validated.name, async (slug) => {
@@ -60,9 +72,14 @@ export async function updateProduct(
   id: string,
   data: z.infer<typeof productSchema>,
 ) {
+  // Verificar autenticación
+  await requireAuth();
+  
+  // Validar ID y datos
+  const validId = idSchema.parse(id);
   const validated = productSchema.parse(data);
 
-  const existing = await prisma.product.findUnique({ where: { id } });
+  const existing = await prisma.product.findUnique({ where: { id: validId } });
   if (!existing) throw new Error("Producto no encontrado");
 
   let slug = existing.slug;
@@ -79,7 +96,7 @@ export async function updateProduct(
   }
 
   const product = await prisma.product.update({
-    where: { id },
+    where: { id: validId },
     data: {
       ...validated,
       slug,
@@ -94,8 +111,14 @@ export async function updateProduct(
 }
 
 export async function deleteProduct(id: string) {
+  // Verificar autenticación
+  await requireAuth();
+  
+  // Validar ID
+  const validId = idSchema.parse(id);
+  
   await prisma.product.delete({
-    where: { id },
+    where: { id: validId },
   });
 
   revalidatePath("/admin/productos");
