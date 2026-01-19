@@ -162,25 +162,25 @@ export default function ExpensesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-800 p-4 lg:p-6 rounded-lg border border-red-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2 lg:p-3 bg-gradient-to-br from-red-600 to-orange-600 rounded-full">
               <TrendingDown className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-lg sm:text-xl lg:text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                 Gastos
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-xs sm:text-sm lg:text-base text-muted-foreground">
                 Registra y gestiona las salidas de dinero
               </p>
             </div>
           </div>
           <Button
             onClick={() => setIsDialogOpen(true)}
-            className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all"
+            className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
           >
             <Plus className="h-5 w-5 mr-2" />
             Nuevo Gasto
@@ -189,7 +189,7 @@ export default function ExpensesPage() {
       </div>
 
       <div className="flex items-center justify-between">
-        <Badge variant="secondary" className="h-10 px-4 text-base">
+        <Badge variant="secondary" className="h-10 px-4 text-sm sm:text-base">
           {expenses.length} {expenses.length === 1 ? 'gasto' : 'gastos'} registrados
         </Badge>
       </div>

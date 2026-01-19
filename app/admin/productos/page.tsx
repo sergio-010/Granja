@@ -107,23 +107,23 @@ export default function ProductsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 p-4 lg:p-6 rounded-lg border border-blue-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2 lg:p-3 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full">
               <Package className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Productos y Servicios
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Gestiona el catálogo de productos y servicios
               </p>
             </div>
           </div>
           <Button
             onClick={handleCreate}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all"
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-11 px-6 shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
           >
             <Plus className="h-5 w-5 mr-2" />
             Nuevo Producto

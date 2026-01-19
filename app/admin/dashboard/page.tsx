@@ -140,22 +140,22 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold">Dashboard</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Vista general de ventas, gastos y utilidades
           </p>
         </div>
-        <Tabs value={period} onValueChange={(v) => setPeriod(v as DatePeriod)}>
-          <TabsList>
-            <TabsTrigger value="today">Hoy</TabsTrigger>
-            <TabsTrigger value="week">Semana</TabsTrigger>
-            <TabsTrigger value="biweekly">Quincena</TabsTrigger>
-            <TabsTrigger value="month">Mes</TabsTrigger>
-            <TabsTrigger value="semester">Semestre</TabsTrigger>
-            <TabsTrigger value="year">Año</TabsTrigger>
+        <Tabs value={period} onValueChange={(v) => setPeriod(v as DatePeriod)} className="w-full sm:w-auto">
+          <TabsList className="grid grid-cols-3 sm:grid-cols-6 w-full sm:w-auto">
+            <TabsTrigger value="today" className="text-xs sm:text-sm">Hoy</TabsTrigger>
+            <TabsTrigger value="week" className="text-xs sm:text-sm">Semana</TabsTrigger>
+            <TabsTrigger value="biweekly" className="text-xs sm:text-sm">Quincena</TabsTrigger>
+            <TabsTrigger value="month" className="text-xs sm:text-sm">Mes</TabsTrigger>
+            <TabsTrigger value="semester" className="text-xs sm:text-sm">Semestre</TabsTrigger>
+            <TabsTrigger value="year" className="text-xs sm:text-sm">Año</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
       ) : (
         <>
           {/* KPI Cards */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
             <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 border-l-4 border-l-green-500">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -263,19 +263,19 @@ export default function DashboardPage() {
           </div>
 
           {/* Charts */}
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 lg:grid-cols-2">
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800">
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-green-600" />
+              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800 p-4 sm:p-6">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
                   Ventas vs Gastos por Día
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-6">
-                <ResponsiveContainer width="100%" height={350}>
+              <CardContent className="pt-4 sm:pt-6 px-2 sm:px-6">
+                <ResponsiveContainer width="100%" height={300}>
                   <LineChart
                     data={salesByDay}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
                   >
                     <defs>
                       <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
@@ -291,11 +291,13 @@ export default function DashboardPage() {
                     <XAxis
                       dataKey="date"
                       stroke="#6b7280"
-                      style={{ fontSize: '12px' }}
+                      style={{ fontSize: '10px' }}
+                      tick={{ fontSize: 10 }}
                     />
                     <YAxis
                       stroke="#6b7280"
-                      style={{ fontSize: '12px' }}
+                      style={{ fontSize: '10px' }}
+                      tick={{ fontSize: 10 }}
                       tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
                     />
                     <Tooltip
@@ -339,14 +341,14 @@ export default function DashboardPage() {
             </Card>
 
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800">
-                <CardTitle className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5 text-blue-600" />
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 p-4 sm:p-6">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                  <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                   Ventas por Método de Pago
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-6">
-                <ResponsiveContainer width="100%" height={350}>
+              <CardContent className="pt-4 sm:pt-6 px-2 sm:px-6">
+                <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
                     <defs>
                       <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
@@ -375,10 +377,10 @@ export default function DashboardPage() {
                         strokeWidth: 1,
                       }}
                       label={({ name, percent }) =>
-                        `${name}: ${((percent || 0) * 100).toFixed(1)}%`
+                        `${name}: ${((percent || 0) * 100).toFixed(0)}%`
                       }
-                      outerRadius={100}
-                      innerRadius={60}
+                      outerRadius={80}
+                      innerRadius={50}
                       fill="#8884d8"
                       dataKey="value"
                       animationBegin={0}

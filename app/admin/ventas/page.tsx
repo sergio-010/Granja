@@ -95,15 +95,15 @@ export default function SalesPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800 p-6 rounded-lg border border-green-200 dark:border-gray-700">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800 p-4 sm:p-6 rounded-lg border border-green-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full">
-            <DollarSign className="h-6 w-6 text-white" />
+          <div className="p-2 sm:p-3 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full">
+            <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Historial de Ventas</h1>
-            <p className="text-sm lg:text-base text-muted-foreground">
+            <h1 className="text-lg sm:text-xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Historial de Ventas</h1>
+            <p className="text-xs sm:text-sm lg:text-base text-muted-foreground">
               Consulta y gestiona todas las ventas registradas
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function SalesPage() {
       </div>
 
       <div className="flex items-center justify-between">
-        <Badge variant="secondary" className="h-10 px-4 text-base">
+        <Badge variant="secondary" className="h-10 px-4 text-sm sm:text-base">
           {sales.length} {sales.length === 1 ? 'venta' : 'ventas'} registradas
         </Badge>
       </div>
