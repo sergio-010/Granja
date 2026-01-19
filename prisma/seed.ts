@@ -6,25 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Seeding database...");
 
-  // Crear SUPER_ADMIN
-  const adminPassword = await bcrypt.hash("admin123", 10);
-
-  try {
-    await prisma.user.upsert({
-      where: { email: "admin@veterinaria.com" },
-      update: {},
-      create: {
-        email: "admin@veterinaria.com",
-        passwordHash: adminPassword,
-        role: "SUPER_ADMIN",
-      },
-    });
-    console.log("✅ SUPER_ADMIN created: admin@veterinaria.com");
-  } catch (e) {
-    console.log("⚠️  Error creating admin@veterinaria.com", e);
-  }
-
-  // Crear segundo ADMIN
+  // Crear ADMIN
   const admin2Password = await bcrypt.hash("Admin010", 10);
 
   try {
@@ -34,10 +16,10 @@ async function main() {
       create: {
         email: "admin@gmail.com",
         passwordHash: admin2Password,
-        role: "ADMIN",
+        role: "SUPER_ADMIN",
       },
     });
-    console.log("✅ ADMIN created: admin@gmail.com");
+    console.log("✅ SUPER_ADMIN created: admin@gmail.com");
   } catch (e) {
     console.log("⚠️  Error creating admin@gmail.com", e);
   }
