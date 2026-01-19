@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -162,14 +163,14 @@ export default function ExpensesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-800 p-6 rounded-lg border border-red-200 dark:border-gray-700">
+      <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-800 p-4 lg:p-6 rounded-lg border border-red-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-red-600 to-orange-600 rounded-full">
-              <TrendingDown className="h-6 w-6 text-white" />
+            <div className="p-2 lg:p-3 bg-gradient-to-br from-red-600 to-orange-600 rounded-full">
+              <TrendingDown className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                 Gastos
               </h1>
               <p className="text-muted-foreground">
@@ -209,8 +210,10 @@ export default function ExpensesPage() {
           <p className="text-sm text-muted-foreground">Los gastos aparecerán aquí una vez registrados</p>
         </div>
       ) : (
-        <div className="border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
-          <Table>
+        <>
+          {/* Vista de tabla en desktop */}
+          <div className="hidden md:block border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
+            <Table>
             <TableHeader>
               <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
                 <TableHead className="font-bold text-base">Fecha</TableHead>
@@ -252,7 +255,50 @@ export default function ExpensesPage() {
               ))}
             </TableBody>
           </Table>
-        </div>
+          </div>
+
+          {/* Vista de tarjetas en móvil */}
+          <div className="md:hidden space-y-4">
+            {expenses.map((expense) => (
+              <Card key={expense.id} className="border-2 border-red-200 dark:border-red-800">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Fecha</p>
+                      <p className="font-medium">{format(new Date(expense.date), 'dd/MM/yyyy', { locale: es })}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(expense.id)}
+                      className="hover:bg-red-100 hover:text-red-600 h-8 w-8"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Categoría</p>
+                    <Badge variant="secondary">{expense.category}</Badge>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Método de Pago</p>
+                    <p className="font-medium">{getPaymentMethodLabel(expense.paymentMethod)}</p>
+                  </div>
+                  {expense.notes && (
+                    <div>
+                      <p className="text-xs text-muted-foreground">Notas</p>
+                      <p className="text-sm">{expense.notes}</p>
+                    </div>
+                  )}
+                  <div className="pt-2 border-t">
+                    <p className="text-xs text-muted-foreground">Monto</p>
+                    <p className="text-xl font-bold text-red-600">-{formatCurrency(expense.amount)}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </>
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

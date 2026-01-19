@@ -217,24 +217,24 @@ export default function POSPage() {
   };
 
   return (
-    <div className="space-y-6 pb-8">
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800 p-6 rounded-lg border border-green-200 dark:border-gray-700">
+    <div className="space-y-4 lg:space-y-6 pb-8">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800 p-4 lg:p-6 rounded-lg border border-green-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full">
-            <ShoppingCart className="h-6 w-6 text-white" />
+          <div className="p-2 lg:p-3 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full">
+            <ShoppingCart className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
               Punto de Venta (POS)
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-sm lg:text-base text-muted-foreground">
               Registra ventas de forma rápida y sencilla
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Panel izquierdo: Búsqueda y carrito */}
         <div className="lg:col-span-2 space-y-4">
           <Card className="shadow-lg border-t-4 border-t-green-500">

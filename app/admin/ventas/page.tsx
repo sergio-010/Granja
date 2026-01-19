@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -101,8 +102,8 @@ export default function SalesPage() {
             <DollarSign className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Historial de Ventas</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Historial de Ventas</h1>
+            <p className="text-sm lg:text-base text-muted-foreground">
               Consulta y gestiona todas las ventas registradas
             </p>
           </div>
@@ -131,53 +132,55 @@ export default function SalesPage() {
           <p className="text-sm text-muted-foreground">Las ventas aparecerán aquí una vez realizadas</p>
         </div>
       ) : (
-        <div className="border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-                <TableHead className="font-bold text-base">Fecha</TableHead>
-                <TableHead className="font-bold text-base">Cliente</TableHead>
-                <TableHead className="font-bold text-base">Items</TableHead>
-                <TableHead className="font-bold text-base">Método Pago</TableHead>
-                <TableHead className="font-bold text-base">Total</TableHead>
-                <TableHead className="text-right font-bold text-base">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sales.map((sale) => (
-                <TableRow key={sale.id} className="hover:bg-green-50 dark:hover:bg-gray-800 transition-colors">
-                  <TableCell className="font-medium">
-                    {format(new Date(sale.date), 'dd/MM/yyyy HH:mm', { locale: es })}
-                  </TableCell>
-                  <TableCell className="font-medium">{sale.customerName || '-'}</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary" className="font-medium">
-                      {sale.items.length} {sale.items.length === 1 ? 'item' : 'items'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{getPaymentMethodLabel(sale.paymentMethod)}</Badge>
-                  </TableCell>
-                  <TableCell className="font-bold text-lg text-green-600">{formatCurrency(sale.total)}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleView(sale)}
-                        className="hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900 transition-all"
-                        title="Ver detalles"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(sale.id)}
-                        className="hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 transition-all"
-                        title="Eliminar"
-                      >
-                        <Trash2 className="h-4 w-4" />
+        <>
+          {/* Vista de tabla en desktop */}
+          <div className="hidden md:block border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
+                  <TableHead className="font-bold text-base">Fecha</TableHead>
+                  <TableHead className="font-bold text-base">Cliente</TableHead>
+                  <TableHead className="font-bold text-base">Items</TableHead>
+                  <TableHead className="font-bold text-base">Método Pago</TableHead>
+                  <TableHead className="font-bold text-base">Total</TableHead>
+                  <TableHead className="text-right font-bold text-base">Acciones</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sales.map((sale) => (
+                  <TableRow key={sale.id} className="hover:bg-green-50 dark:hover:bg-gray-800 transition-colors">
+                    <TableCell className="font-medium">
+                      {format(new Date(sale.date), 'dd/MM/yyyy HH:mm', { locale: es })}
+                    </TableCell>
+                    <TableCell className="font-medium">{sale.customerName || '-'}</TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-medium">
+                        {sale.items.length} {sale.items.length === 1 ? 'item' : 'items'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline">{getPaymentMethodLabel(sale.paymentMethod)}</Badge>
+                    </TableCell>
+                    <TableCell className="font-bold text-lg text-green-600">{formatCurrency(sale.total)}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleView(sale)}
+                          className="hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900 transition-all"
+                          title="Ver detalles"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(sale.id)}
+                          className="hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 transition-all"
+                          title="Eliminar"
+                        >
+                          <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </TableCell>
@@ -185,7 +188,62 @@ export default function SalesPage() {
               ))}
             </TableBody>
           </Table>
-        </div>
+          </div>
+
+          {/* Vista de tarjetas en móvil */}
+          <div className="md:hidden space-y-4">
+            {sales.map((sale) => (
+              <Card key={sale.id} className="border-2 border-green-200 dark:border-green-800">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Fecha</p>
+                      <p className="font-medium">{format(new Date(sale.date), 'dd/MM/yyyy HH:mm', { locale: es })}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleView(sale)}
+                        className="hover:bg-blue-100 hover:text-blue-600 h-8 w-8"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDelete(sale.id)}
+                        className="hover:bg-red-100 hover:text-red-600 h-8 w-8"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Cliente</p>
+                    <p className="font-medium">{sale.customerName || '-'}</p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Items</p>
+                      <Badge variant="secondary">
+                        {sale.items.length} {sale.items.length === 1 ? 'item' : 'items'}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Método</p>
+                      <Badge variant="outline">{getPaymentMethodLabel(sale.paymentMethod)}</Badge>
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t">
+                    <p className="text-xs text-muted-foreground">Total</p>
+                    <p className="text-xl font-bold text-green-600">{formatCurrency(sale.total)}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </>
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

@@ -35,8 +35,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Sidebar */}
-      <aside className="hidden md:flex w-64 flex-col border-r bg-white dark:bg-gray-900 shadow-xl">
+      {/* Sidebar - visible en desktop */}
+      <aside className="hidden lg:flex w-64 flex-col border-r bg-white dark:bg-gray-900 shadow-xl">
         <div className="p-6 border-b bg-gradient-to-r from-green-600 to-emerald-600">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-2xl">
@@ -86,8 +86,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         {/* Topbar */}
         <header className="h-16 border-b bg-white dark:bg-gray-900 shadow-sm flex items-center justify-between px-6">
           <div className="flex items-center gap-4">
-            <div className="hidden md:block w-2 h-8 bg-gradient-to-b from-green-600 to-emerald-600 rounded-full"></div>
-            <h2 className="text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <div className="hidden lg:block w-2 h-8 bg-gradient-to-b from-green-600 to-emerald-600 rounded-full"></div>
+            <h2 className="text-base lg:text-lg font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
               Sistema de Gestión Veterinaria
             </h2>
           </div>
@@ -105,7 +105,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           {children}
         </main>
       </div>

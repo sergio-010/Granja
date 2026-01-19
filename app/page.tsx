@@ -17,27 +17,27 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xl">
+        <div className="container mx-auto px-4 py-3 lg:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-lg lg:text-xl">
               🐾
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">La Granja de Pipe</h1>
+            <h1 className="text-lg lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">La Granja de Pipe</h1>
           </div>
-          <div className="flex items-center gap-4">
-            <nav className="hidden md:flex gap-6">
-              <Link href="/" className="hover:text-primary transition-colors">
+          <div className="flex items-center gap-2 lg:gap-4">
+            <nav className="hidden md:flex gap-4 lg:gap-6">
+              <Link href="/" className="text-sm lg:text-base hover:text-primary transition-colors">
                 Inicio
               </Link>
-              <Link href="/productos" className="hover:text-primary transition-colors">
+              <Link href="/productos" className="text-sm lg:text-base hover:text-primary transition-colors">
                 Servicios
               </Link>
-              <Link href="/productos" className="hover:text-primary transition-colors">
+              <Link href="/productos" className="text-sm lg:text-base hover:text-primary transition-colors">
                 Productos
               </Link>
             </nav>
             <ThemeToggle />
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="text-xs lg:text-sm">
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
           </div>
@@ -46,24 +46,24 @@ export default async function HomePage() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-emerald-950 dark:to-gray-800 overflow-hidden">
+        <section className="relative py-12 lg:py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-emerald-950 dark:to-gray-800 overflow-hidden">
           <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25"></div>
           <div className="container mx-auto px-4 text-center relative">
-            <div className="inline-block mb-4 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full text-green-700 dark:text-green-300 text-sm font-semibold">
+            <div className="inline-block mb-4 px-3 lg:px-4 py-1.5 lg:py-2 bg-green-100 dark:bg-green-900/30 rounded-full text-green-700 dark:text-green-300 text-xs lg:text-sm font-semibold">
               ✨ Cuidado Profesional para tus Mascotas
             </div>
-            <h2 className="text-6xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 lg:mb-6 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
               La Granja de Pipe
             </h2>
-            <p className="text-2xl md:text-3xl font-semibold mb-4 text-gray-700 dark:text-gray-200">
+            <p className="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 lg:mb-4 text-gray-700 dark:text-gray-200">
               Donde tu Mascota es Familia 🐾
             </p>
-            <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base lg:text-lg text-muted-foreground mb-8 lg:mb-10 max-w-3xl mx-auto leading-relaxed">
               Atención veterinaria profesional con amor, dedicación y más de 15 años de experiencia.
               Servicios integrales para el bienestar de tu compañero.
             </p>
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" asChild className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+            <div className="flex gap-3 lg:gap-4 justify-center flex-wrap">
+              <Button size="lg" asChild className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 text-sm lg:text-base">
                 <a href="https://wa.me/123456789" target="_blank" rel="noopener noreferrer">
                   <Phone className="mr-2 h-5 w-5" />
                   📞 Contactar WhatsApp
@@ -78,13 +78,13 @@ export default async function HomePage() {
 
         {/* Banners Section */}
         {banners.length > 0 && (
-          <section className="py-20 bg-background">
+          <section className="py-12 lg:py-20 bg-background">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h3 className="text-4xl font-bold mb-3 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">🎉 Promociones Especiales</h3>
-                <p className="text-muted-foreground text-lg">Aprovecha nuestras ofertas exclusivas</p>
+              <div className="text-center mb-8 lg:mb-12">
+                <h3 className="text-2xl lg:text-4xl font-bold mb-2 lg:mb-3 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">🎉 Promociones Especiales</h3>
+                <p className="text-muted-foreground text-base lg:text-lg">Aprovecha nuestras ofertas exclusivas</p>
               </div>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {banners.map((banner) => (
                   <Card key={banner.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-green-500">
                     <img
@@ -119,13 +119,13 @@ export default async function HomePage() {
         )}
 
         {/* Features Section */}
-        <section className="py-24 bg-gradient-to-b from-background to-green-50/30 dark:to-green-950/10">
+        <section className="py-12 lg:py-24 bg-gradient-to-b from-background to-green-50/30 dark:to-green-950/10">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">¿Por qué La Granja de Pipe?</h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Compromiso total con la salud y felicidad de tu mascota</p>
+            <div className="text-center mb-10 lg:mb-16">
+              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">¿Por qué La Granja de Pipe?</h3>
+              <p className="text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">Compromiso total con la salud y felicidad de tu mascota</p>
             </div>
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-6 lg:gap-8 md:grid-cols-3">
               <Card className="border-2 hover:border-green-500 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                 <CardHeader>
                   <div className="h-16 w-16 rounded-full bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center mb-4">
@@ -173,18 +173,18 @@ export default async function HomePage() {
 
         {/* Featured Products/Services */}
         {featuredProducts.length > 0 && (
-          <section className="py-24 bg-background">
+          <section className="py-12 lg:py-24 bg-background">
             <div className="container mx-auto px-4">
-              <div className="flex items-center justify-between mb-12">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 lg:mb-12 gap-4">
                 <div>
-                  <h3 className="text-4xl font-bold mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Servicios Destacados</h3>
-                  <p className="text-muted-foreground">Lo mejor para el cuidado de tu mascota</p>
+                  <h3 className="text-2xl lg:text-4xl font-bold mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Servicios Destacados</h3>
+                  <p className="text-sm lg:text-base text-muted-foreground">Lo mejor para el cuidado de tu mascota</p>
                 </div>
-                <Button variant="outline" asChild className="border-2 border-green-600 hover:bg-green-50 dark:hover:bg-green-950/50">
+                <Button variant="outline" asChild className="border-2 border-green-600 hover:bg-green-50 dark:hover:bg-green-950/50 text-sm lg:text-base">
                   <Link href="/productos">Ver Todo →</Link>
                 </Button>
               </div>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {featuredProducts.map((product) => (
                   <Card key={product.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-green-500">
                     <img
@@ -246,23 +246,23 @@ export default async function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+      <footer className="border-t py-8 lg:py-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid gap-6 lg:gap-8 md:grid-cols-3 mb-6 lg:mb-8">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-2xl">
+              <div className="flex items-center gap-2 lg:gap-3 mb-3 lg:mb-4">
+                <div className="h-10 w-10 lg:h-12 lg:w-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-xl lg:text-2xl">
                   🐾
                 </div>
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">La Granja de Pipe</h3>
+                <h3 className="text-lg lg:text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">La Granja de Pipe</h3>
               </div>
-              <p className="text-gray-400">
+              <p className="text-sm lg:text-base text-gray-400">
                 Cuidado veterinario profesional con más de 15 años de experiencia. Tu mascota es nuestra familia.
               </p>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-lg">Enlaces Rápidos</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-bold mb-3 lg:mb-4 text-base lg:text-lg">Enlaces Rápidos</h4>
+              <ul className="space-y-2 text-sm lg:text-base text-gray-400">
                 <li><Link href="/" className="hover:text-green-400 transition-colors">Inicio</Link></li>
                 <li><Link href="/productos" className="hover:text-green-400 transition-colors">Servicios</Link></li>
                 <li><Link href="/productos" className="hover:text-green-400 transition-colors">Productos</Link></li>
@@ -270,8 +270,8 @@ export default async function HomePage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4 text-lg">Contacto</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-bold mb-3 lg:mb-4 text-base lg:text-lg">Contacto</h4>
+              <ul className="space-y-2 text-sm lg:text-base text-gray-400">
                 <li>📞 WhatsApp: <a href="https://wa.me/123456789" className="hover:text-green-400 transition-colors">+123 456 789</a></li>
                 <li>📧 Email: info@lagranjade pipe.com</li>
                 <li>📍 Dirección: Tu ciudad</li>
@@ -279,7 +279,7 @@ export default async function HomePage() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-6 text-center text-gray-400">
+          <div className="border-t border-gray-700 pt-4 lg:pt-6 text-center text-sm lg:text-base text-gray-400">
             <p>© 2026 <strong className="text-green-400">La Granja de Pipe</strong>. Todos los derechos reservados. Hecho con 💚 para tus mascotas.</p>
           </div>
         </div>

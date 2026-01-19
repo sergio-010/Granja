@@ -305,7 +305,7 @@ export default function DashboardPage() {
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                       }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                     />
                     <Legend
                       wrapperStyle={{ paddingTop: '20px' }}
@@ -401,7 +401,7 @@ export default function DashboardPage() {
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                       }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''}
                     />
                   </PieChart>
                 </ResponsiveContainer>
