@@ -104,64 +104,64 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           "fixed inset-y-0 left-0 w-64 z-50 flex flex-col border-r bg-white dark:bg-gray-900 shadow-xl lg:hidden transition-transform duration-300 ease-in-out",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}>
-            <div className="p-6 border-b bg-gradient-to-r from-green-600 to-emerald-600">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-2xl">
-                    🐾
-                  </div>
-                  <div>
-                    <h1 className="text-lg font-bold text-white">La Granja de Pipe</h1>
-                    <p className="text-xs text-green-100">Admin</p>
-                  </div>
+          <div className="p-6 border-b bg-gradient-to-r from-green-600 to-emerald-600">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-2xl">
+                  🐾
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={closeMobileMenu}
-                  className="text-white hover:bg-white/20"
-                >
-                  <X className="h-5 w-5" />
-                </Button>
+                <div>
+                  <h1 className="text-lg font-bold text-white">La Granja de Pipe</h1>
+                  <p className="text-xs text-green-100">Admin</p>
+                </div>
               </div>
-            </div>
-            <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={closeMobileMenu}
-                    className={cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
-                      isActive
-                        ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg scale-105'
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-600 dark:hover:text-green-400'
-                    )}
-                  >
-                    <Icon className={cn("h-5 w-5", isActive && "animate-pulse")} />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
-            <div className="p-4 border-t bg-gray-50 dark:bg-gray-800">
               <Button
-                variant="outline"
-                className="w-full justify-start gap-2 h-11 border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all"
-                onClick={() => {
-                  closeMobileMenu();
-                  handleLogout();
-                }}
+                variant="ghost"
+                size="icon"
+                onClick={closeMobileMenu}
+                className="text-white hover:bg-white/20"
               >
-                <LogOut className="h-4 w-4" />
-                Cerrar Sesión
+                <X className="h-5 w-5" />
               </Button>
             </div>
-          </aside>
-        </>
+          </div>
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                  className={cn(
+                    'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
+                    isActive
+                      ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg scale-105'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-600 dark:hover:text-green-400'
+                  )}
+                >
+                  <Icon className={cn("h-5 w-5", isActive && "animate-pulse")} />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="p-4 border-t bg-gray-50 dark:bg-gray-800">
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-11 border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all"
+              onClick={() => {
+                closeMobileMenu();
+                handleLogout();
+              }}
+            >
+              <LogOut className="h-4 w-4" />
+              Cerrar Sesión
+            </Button>
+          </div>
+        </aside>
+      </>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">

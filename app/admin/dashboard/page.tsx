@@ -159,7 +159,7 @@ export default function DashboardPage() {
             Vista general de ventas, gastos y utilidades
           </p>
         </div>
-        
+
         {/* Botón de acciones rápidas para móvil */}
         <div className="sm:hidden flex gap-2">
           <Select value={period} onValueChange={(v) => setPeriod(v as DatePeriod)}>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
               <SelectItem value="year">📅 Este Año</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button size="icon" className="h-11 w-11 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
