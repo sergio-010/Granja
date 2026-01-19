@@ -214,47 +214,47 @@ export default function ExpensesPage() {
           {/* Vista de tabla en desktop */}
           <div className="hidden md:block border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
             <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-                <TableHead className="font-bold text-base">Fecha</TableHead>
-                <TableHead className="font-bold text-base">Categoría</TableHead>
-                <TableHead className="font-bold text-base">Monto</TableHead>
-                <TableHead className="font-bold text-base">Método Pago</TableHead>
-                <TableHead className="font-bold text-base">Notas</TableHead>
-                <TableHead className="text-right font-bold text-base">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {expenses.map((expense) => (
-                <TableRow key={expense.id} className="hover:bg-red-50 dark:hover:bg-gray-800 transition-colors">
-                  <TableCell className="font-medium">
-                    {format(new Date(expense.date), 'dd/MM/yyyy', { locale: es })}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="secondary" className="font-medium">{expense.category}</Badge>
-                  </TableCell>
-                  <TableCell className="font-bold text-lg text-red-600">
-                    -{formatCurrency(expense.amount)}
-                  </TableCell>
-                  <TableCell>
-                    {getPaymentMethodLabel(expense.paymentMethod)}
-                  </TableCell>
-                  <TableCell className="max-w-xs truncate">
-                    {expense.notes || '-'}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDelete(expense.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
+              <TableHeader>
+                <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
+                  <TableHead className="font-bold text-base">Fecha</TableHead>
+                  <TableHead className="font-bold text-base">Categoría</TableHead>
+                  <TableHead className="font-bold text-base">Monto</TableHead>
+                  <TableHead className="font-bold text-base">Método Pago</TableHead>
+                  <TableHead className="font-bold text-base">Notas</TableHead>
+                  <TableHead className="text-right font-bold text-base">Acciones</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {expenses.map((expense) => (
+                  <TableRow key={expense.id} className="hover:bg-red-50 dark:hover:bg-gray-800 transition-colors">
+                    <TableCell className="font-medium">
+                      {format(new Date(expense.date), 'dd/MM/yyyy', { locale: es })}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-medium">{expense.category}</Badge>
+                    </TableCell>
+                    <TableCell className="font-bold text-lg text-red-600">
+                      -{formatCurrency(expense.amount)}
+                    </TableCell>
+                    <TableCell>
+                      {getPaymentMethodLabel(expense.paymentMethod)}
+                    </TableCell>
+                    <TableCell className="max-w-xs truncate">
+                      {expense.notes || '-'}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDelete(expense.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
 
           {/* Vista de tarjetas en móvil */}

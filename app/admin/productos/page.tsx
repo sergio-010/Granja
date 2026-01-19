@@ -166,70 +166,70 @@ export default function ProductsPage() {
           {/* Vista de tabla en desktop */}
           <div className="hidden md:block border-2 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900">
             <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
-                <TableHead className="font-bold text-base">Nombre</TableHead>
-                <TableHead className="font-bold text-base">Tipo</TableHead>
-                <TableHead className="font-bold text-base">Precio</TableHead>
-                <TableHead className="font-bold text-base">Estado</TableHead>
-                <TableHead className="font-bold text-base">Destacado</TableHead>
-                <TableHead className="text-right font-bold text-base">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredProducts.map((product) => (
-                <TableRow key={product.id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
-                  <TableCell className="font-semibold text-base">{product.name}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={product.type === 'PRODUCT' ? 'default' : 'secondary'}
-                      className="font-medium"
-                    >
-                      {product.type === 'PRODUCT' ? '📦 Producto' : '🛠️ Servicio'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="font-bold text-green-600 text-base">{formatCurrency(product.price)}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={product.isActive ? 'default' : 'outline'}
-                      className={product.isActive ? 'bg-green-500 hover:bg-green-600' : ''}
-                    >
-                      {product.isActive ? '✓ Activo' : '✕ Inactivo'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {product.isFeatured && (
-                      <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100">
-                        ⭐ Destacado
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleEdit(product)}
-                        className="hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900 transition-all"
-                        title="Editar"
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(product.id, product.name)}
-                        className="hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 transition-all"
-                        title="Eliminar"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+              <TableHeader>
+                <TableRow className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
+                  <TableHead className="font-bold text-base">Nombre</TableHead>
+                  <TableHead className="font-bold text-base">Tipo</TableHead>
+                  <TableHead className="font-bold text-base">Precio</TableHead>
+                  <TableHead className="font-bold text-base">Estado</TableHead>
+                  <TableHead className="font-bold text-base">Destacado</TableHead>
+                  <TableHead className="text-right font-bold text-base">Acciones</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredProducts.map((product) => (
+                  <TableRow key={product.id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
+                    <TableCell className="font-semibold text-base">{product.name}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={product.type === 'PRODUCT' ? 'default' : 'secondary'}
+                        className="font-medium"
+                      >
+                        {product.type === 'PRODUCT' ? '📦 Producto' : '🛠️ Servicio'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-bold text-green-600 text-base">{formatCurrency(product.price)}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={product.isActive ? 'default' : 'outline'}
+                        className={product.isActive ? 'bg-green-500 hover:bg-green-600' : ''}
+                      >
+                        {product.isActive ? '✓ Activo' : '✕ Inactivo'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {product.isFeatured && (
+                        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100">
+                          ⭐ Destacado
+                        </Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEdit(product)}
+                          className="hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900 transition-all"
+                          title="Editar"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(product.id, product.name)}
+                          className="hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 transition-all"
+                          title="Eliminar"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
 
           {/* Vista de tarjetas en móvil */}
